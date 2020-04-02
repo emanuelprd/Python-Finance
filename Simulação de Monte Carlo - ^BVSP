@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Libraries used in this simulation
+# Libraries usadas nessa simulação:
 
 # In[1]:
 
@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm
 
 
-# Extracting my data from yahoo finance
+# Extrai os meus dados do Yahoo Finance por do pandas DataReader. 
 
 # In[2]:
 
@@ -33,7 +33,7 @@ print(my_data)
 my_data.plot(figsize=(20,10))
 
 
-# Daily returns formula
+# Retorno linear diário
 
 # In[4]:
 
@@ -42,7 +42,7 @@ ibov_return = my_data/my_data.shift(1)-1
 ibov_return
 
 
-# Some people says that log returns are better, but it's less intuitive. 
+# Retorno logarítmico. 
 
 # In[5]:
 
@@ -51,7 +51,9 @@ log_return = np.log(1+my_data.pct_change())
 log_return
 
 
-# I decided the first formula 
+# Eu decidi por utilizar o retorno linear por estar mais familiarizado.*
+
+# * Alguns indicam o Log-Retorno
 
 # In[59]:
 
@@ -61,10 +63,10 @@ var = ibov_return.var()
 std = np.sqrt(var)
 
 
-# I'm using the Geometric Brownian Motion formula to generate to run the simulation. the formula is: 
-# 
+# A fórmula utilizada para esta simulação de Monte Carlo foi o Movimento Browniano Geométrico. 
+ 
 # GBM = np.exp(drift + std(x)*norm.ppf(np.random.rand(intervals,iterations)))
-# 
+
 # drift = mean(x) - (1/2)*(x)
 
 # In[7]:
@@ -73,41 +75,35 @@ std = np.sqrt(var)
 drift = m - (0.5*var)
 drift
 
+# Abaixo estou definindo alguns parametros, como o meu eixo x(intervalos) e número de simulações(iterações)
 
 # In[8]:
-
-
-np.array(drift)
-
-
-# In[9]:
-
-
-norm.ppf(0.95)
-
-
-# In[44]:
 
 
 intervals = 30
 iterations = 1000
 
 
-# In[45]:
+# Aplicação da fórmula:
+
+# In[9]:
 
 
 d_return = np.exp(drift.values + std.values*norm.ppf(np.random.rand(intervals,iterations)))
 d_return
 
 
-# In[46]:
+# In[10]:
 
 
 d0 = my_data.iloc[-1]
 d0
 
 
-# In[47]:
+# Aqui foi utilizado um loop pra cada n do meu preço futuro(fprice), onde meu n é o número de intervalos. 
+# Para cada intervalo, um número aleatório é gerado pela fórmula GBM.
+
+# In[11]:
 
 
 fprice = np.zeros_like(d_return)
@@ -119,42 +115,30 @@ for n in range(1,intervals):
 fprice
 
 
-# In[48]:
+# In[12]:
 
 
 plt.figure(figsize=(20,10))
 plt.plot(fprice)
 
 
-# In[56]:
+# In[13]:
 
 
 plt.hist(fprice[-1], bins = 40, histtype = 'step')
 plt.show()
 
 
-# In[50]:
+# In[14]:
 
+print("Os resultados dessa simulação foram: \n")
+print("Ativo: ", tickers,"\n")
+print("Intervalos:",intervals, "\nIterações:", iterations, "\n")
+print("Média :",int(fprice.mean()))
+print("Máximo :",int(fprice.max()))
+print("Mínimo :",int(fprice.min()))
+print("Desvio-Padrão :",int(fprice.std()))
 
-print("Média :",round(fprice.mean(),))
-print("Máximo :",round(fprice.max(),))
-print("Mínimo :",round(fprice.min(),))
-print("Desvio-Padrão :",round(fprice.std(),))
-
-
-# In[34]:
-
-
-fprice[-1]
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
 
 
 
