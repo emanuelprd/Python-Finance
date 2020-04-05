@@ -126,7 +126,10 @@ print(max(ldr_BVSP[1:])*100)
 print(max(dr_BVSP[1:])*100) 
 
 
-# In[ ]:
+# In[27]:
+
+print(ldr_BVSP.mean()*100)
+print(dr_BVSP.mean()*100)
 
 
 
