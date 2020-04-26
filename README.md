@@ -3,3 +3,5 @@ Repository destinated to store projects of Finance Studies using Python and comm
 
 ![BRLUSD.DI1FUT](BRLUSD.DI1FUT.png?raw=true "BRLUSD.DI1FUT")
 
+![BVSP](BVSP.png?raw=true "BVSP")
+
