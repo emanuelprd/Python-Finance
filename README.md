@@ -4,5 +4,5 @@ Repository destinated to store projects of Finance Studies using Python and comm
 
 ![vale3bvsp](vale3bvsp.png?raw=true "vale3bvsp")
 
-![BVSP](BVSP.png?raw=true "BVSP")
+![BVSP](itub4bbdc3.png?raw=true "BVSP")
 
